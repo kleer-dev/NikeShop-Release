@@ -1,0 +1,45 @@
+﻿<link rel="stylesheet" href="~/css/new.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+
+@{ 
+    Random random = new Random();
+    int toSkip = random.Next(0, ApplicationContext.db.NewNike.Count());
+
+    var item = ApplicationContext.db.NewNike.Skip(toSkip).Take(1).First();
+}
+
+<div class="content">
+    <div class="new">
+        <div class="content-container">
+            <div class="nike_picture">
+                <img class="img" src="@item.Path" alt="Nike" />
+            </div>
+        </div>
+    </div>
+
+    <div class="text">
+        <div class="content-container">
+            <div class="nike-des">
+                <label class="nike-name">
+                    @item.Name
+                </label>
+                <label class="nike-name2">
+                    @item.Name2
+                </label>
+                <label class="description">
+                    @item.Description
+                </label>
+            </div>
+        </div>
+
+
+        
+
+
+    </div>
+
+    
+</div>

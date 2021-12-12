@@ -1,0 +1,91 @@
+﻿@model CombineNikeOrderModel
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link href="~/css/order.css" rel="stylesheet" />
+
+
+
+@using System.ComponentModel.DataAnnotations;
+@using System.Linq
+@using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
+
+
+    <div class="container">
+        <div class="info">
+            <div class="picture">
+                <img src="@ViewBag.Path" alt="none" />
+            </div>
+            <div class="name">
+                @ViewBag.Name
+            </div>
+            <div class="description">
+                @ViewBag.Description
+            </div>
+            <div class="price">
+                Price: @ViewBag.Price $
+            </div>
+        </div>
+        
+        <div class="order">
+            <div class="form">
+                <form asp-controller="OrderEdit" asp-action="Index" method="post"
+                      asp-route-id="@ViewBag.ID" class="formcom">
+
+                    <div class="sizetype">
+                        <div class="label">Type your leg size</div>
+
+                        <input type="text" asp-for="CheckModel.LegSize" name="size" class="sizeinput" maxlength="2"/>
+                    </div>
+                     @Html.ValidationSummary()
+                    
+
+                    <input type="hidden" name="countries" value="" class="countryName"/>
+
+                    <div class="selectcountry">
+                        <div class="label">Select country</div>
+                        <input type="button" value="China" onclick="clicked(this)" class="btn"/>
+                        <input type="button" value="USA" onclick="clicked(this)" class="btn"/>
+                        <input type="button" value="Italy" onclick="clicked(this)" class="btn"/>
+                        <input type="button" value="Spain" onclick="clicked(this)" class="btn"/>
+                    </div>
+
+                    <div class="ok">
+                        <input asp-controller="OrderEdit" asp-action="Index" asp-route-id="@ViewBag.ID" type="submit" value="Send" class="btn-sub"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        var countryChange = "";
+
+        function clicked(c) {
+            if (c.value == "China") {
+                countryChange = "China";
+            }
+            else if (c.value == "USA") {
+                countryChange = "USA";
+            }
+            else if (c.value == "Italy") {
+                countryChange = "Italy";
+            }
+            else if (c.value == "Spain") {
+                countryChange = "Spain";
+            }
+
+            send();
+
+            console.log(countryChange);
+        }
+
+        function send() {
+            document.querySelector(".countryName").value = countryChange;
+        }
+    </script>

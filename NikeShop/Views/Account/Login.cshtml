@@ -1,0 +1,56 @@
+﻿<link rel="stylesheet" href="~/css/login.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+@model CombineLoginRegistration
+
+
+<div class="container-page">
+    <div class="content-container">
+        <form asp-controller="Account" asp-action="Login" class="form-login" method="post">
+            <div class="descript-forms">Login</div>
+
+            <label>Phone number</label>
+            <input type="text" class="input-class" asp-for="Login.PhoneNumber" />
+            <span asp-validation-for="Login.PhoneNumber" class="valid"></span>
+
+            <label>Password</label>
+            <input type="password" class="input-class" asp-for="Login.Password" />
+            <span asp-validation-for="Login.Password" class="valid"></span>
+
+            <input type="submit" value="LogIn" class="button" />
+            
+        </form>
+
+        <form asp-controller="Account" asp-action="Login"
+              class="form-login" method="post">
+            <div class="descript-forms">Registration</div>
+
+            <label>Login</label>
+            <input type="text" class="input-class" asp-for="Registration.Login" />
+            <span asp-validation-for="Registration.Login" class="valid"></span>
+
+            <label>Phone number</label>
+            <input type="text" class="input-class" asp-for="Registration.PhoneNumber" />
+            <span asp-validation-for="Registration.PhoneNumber" class="valid"></span>
+
+            <label>Password</label>
+            <input type="password" class="input-class" asp-for="Registration.Password" />
+            <span asp-validation-for="Registration.Password" class="valid"></span>
+
+            <label>
+                Password confirmation
+            </label>
+            <input type="password" class="input-class" asp-for="Registration.PasswordCheck" />
+            <span asp-validation-for="Registration.PasswordCheck" class="valid"></span>
+
+            <input type="submit" value="Register" class="button" />
+
+        </form>
+    </div>
+</div>
+

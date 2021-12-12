@@ -1,0 +1,58 @@
+﻿<link rel="stylesheet" href="~/css/header.css">
+
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.Extensions.Logging;
+@using NikeShop.Models;
+@using System;
+@using System.Collections.Generic;
+@using System.Diagnostics;
+@using System.Linq;
+@using System.Security.Claims;
+@using System.Threading.Tasks;
+
+<div class="header">
+
+    <div class="nike-logo">
+        <img src="/Pictures/nike-logo.png" alt="none" class="logo" />
+    </div>
+
+    <div class="header_section">
+        <div class="header_item">
+            <a asp-controller="Home" asp-action="Index">New</a>
+        </div>
+        <div class="header_item">
+            <a asp-controller="Home" asp-action="Catalog">Catalog</a>
+        </div>
+        <div class="header_item">
+            <a asp-controller="Cart" asp-action="Cart">Cart</a>
+        </div>
+    </div>
+
+    <div class="user-name">
+        @{ try
+            {
+                ViewBag.RegCheck = User.Identity.IsAuthenticated;
+                ViewBag.Name = User.FindFirst(ClaimTypes.Name).Value;
+            }
+            catch { } }
+
+
+        <a asp-controller="UserPage" asp-action="UserAccount">@ViewBag.Name</a>
+    </div>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="login">
+            <a asp-controller="Account" asp-action="Login">Login</a>
+        </div>
+    }
+    else
+    {
+
+    }
+
+
+
+</div>
+
+

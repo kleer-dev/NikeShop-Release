@@ -1,0 +1,107 @@
+﻿body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content{
+    display:flex;
+    flex-direction: row;
+}
+
+.new {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    top: 0;
+    left: 0;
+    margin: auto;
+}
+
+.text {
+    font-size: 56px;
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    top: 0;
+    left: 50%;
+    margin: auto;
+}
+
+.nike-picture {
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.nike {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin: auto;
+    height: 50%;
+    width: 100%;
+}
+
+.name {
+    position: absolute;
+    display: flex;
+    font-family: 'SF UI Display Medium';
+    width: 50%;
+    justify-content: flex-start;
+    align-items: baseline;
+    font-size: 45px;
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    height: 30%;
+    justify-content: center;
+    align-items: center;
+}
+
+.description {
+    display: flex;
+    font-size: 25px;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.nike-des {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin: auto;
+    height: 50%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.nike-name {
+    font-weight: 800;
+    font-size: 50px;
+}
+
+.nike-name2 {
+    font-weight: 600;
+    font-size: 30px;
+}

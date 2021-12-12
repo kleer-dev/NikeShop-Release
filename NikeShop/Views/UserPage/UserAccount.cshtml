@@ -1,0 +1,240 @@
+﻿<link href="~/css/user-acc.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/jquery.maskedinput/jquery.maskedinput.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+@using System.Security.Claims;
+
+@model List<Purchase>
+
+@{
+    var userid = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+    var user = ApplicationContext.db.Users.Where(p => p.ID == userid).FirstOrDefault();
+}
+
+
+<div class="place">
+    <div class="page">
+        <div class="userinfo">
+            <div class="userdata">
+                <div class="label">User Info</div>
+                <div class="datafield">
+                    <div class="field">Login: @user.Name</div>
+                    <div class="field">Phone Number: @user.PhoneNumber</div>
+                    @*<div class="field">Password: @user.Password</div>*@
+                </div>
+            </div>
+            @*<div class="editdata">
+                <div class="label">Edit User Info</div>
+                <div class="datafield">
+                    <form class="edit-form" asp-action="UserAccount" asp-controller="UserPage"
+                          method="post">
+                        <div class="field">Login:<input class="fieldinput" type="text" name="name" asp-route="parms" value="" /></div>
+                        <div class="field">Phone Number: <input class="fieldinput" type="text" name="name" asp-route="parms" value="" /> </div>
+                        <div class="field">Password: <input class="fieldinput" type="text" name="name" asp-route="parms" value="" /> </div>
+                    </form>
+                </div>
+            </div>*@
+            <div class="exit">
+                <form class="exitbtn" action="UserAccount" method="post">
+                    <input type="submit" class="btn" value="LogOut from account" />
+                </form>
+            </div>
+        </div>
+        <div class="content">
+            <div class="head">
+                <div class="search">
+                    <form class="search-form" asp-controller="Search" asp-action="Search" method="post">
+                        <input class="search-f" type="search" name="field-search" value="" />
+                        <div class="search-ico-div">
+                            <input class="search-btn" type="submit" name="name" value="    " />
+                        </div>
+                    </form>
+                </div>
+                <div class="headername">
+                    Purchase History
+                </div>
+                @*<div class="adminplace">
+                        @if (User.FindFirst(ClaimTypes.Role).Value == "Admin")
+                        {
+                            <input type="button" class="btn" name="name" value="Admin Panel" />
+                        }
+                    </div>*@
+            </div>
+            <div class="main">
+                <div class="conttable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Sending country</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Date</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.Country</td>
+                                    <td>@item.Size</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="func">
+                    <input class="filtr-btn" type="button" name="name" value="Filter" />
+                    <input class="sort-btn" type="button" name="name" value="Sort" />
+                    <a class="excel-btn" asp-controller="Export" asp-action="ExportToExcel" >Export to Excel</a>
+                    <a asp-controller="UpdateTable" asp-action="Update" class="excel-btn">Update</a>
+                    <a class="clear-btn" asp-controller="ClearTable" asp-action="Clear" type="button">Clear Table</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="window-bg">
+        <div class="window">
+            <form class="sort-form" action="/" method="post">
+                <p class="label-sort">Select sort Type</p>
+                <div class="sort-container">
+                    <div class="sort-type-section">
+                        <p class="sort-name">
+                            Date
+                        </p>
+                        <div class="btn-div">
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortDate" asp-route-type="0">Ascending</a>
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortDate" asp-route-type="1">Descending</a>
+                        </div>
+                    </div>
+                    <div class="sort-type-section">
+                        <p class="sort-name">
+                            Name
+                        </p>
+                        <div class="btn-div">
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortName" asp-route-type="0">Ascending</a>
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortName" asp-route-type="1">Descending</a>
+                        </div>
+                    </div>
+
+                    <div class="sort-type-section">
+                        <p class="sort-name">
+                            Price
+                        </p>
+                        <div class="btn-div">
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortPrice" asp-route-type="0">Ascending</a>
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortPrice" asp-route-type="1">Descending</a>
+                        </div>
+                    </div>
+                    <div class="sort-type-section">
+                        <p class="sort-name">
+                            Sending country
+                        </p>
+                        <div class="btn-div">
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortCountry" asp-route-type="0">Ascending</a>
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortCountry" asp-route-type="1">Descending</a>
+                        </div>
+                    </div>
+                    <div class="sort-type-section">
+                        <p class="sort-name">
+                            Size
+                        </p>
+                        <div class="btn-div">
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortSize" asp-route-type="0">Ascending</a>
+                            <a class="sort-Button" asp-controller="Sort" asp-action="SortSize" asp-route-type="1">Descending</a>
+                        </div>
+                    </div>
+                    <div class="exit-div">
+                        <input class="w-exit-btn" type="button" name="name" value="Exit" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="filtr-windows-bg">
+        <div class="filtr-windows">
+            <form class="sort-form" asp-controller="Filtr" asp-action="Filtr" method="post">
+                <p class="label-sort">Select filtration Type</p>
+                <div class="sort-container">
+                    <div class="f-container">
+                        <label for="f-date">Date</label>
+                        <input id="f-date" class="filtr radioBtn" type="radio" name="q" value="date"/>
+                    </div>
+                    <div class="f-container">
+                        <label for="f-name">Name</label>
+                        <input id="f-name" class="filtr radioBtn" type="radio" name="q" value="name"/>
+                    </div>
+                    <div class="f-container">
+                        <label for="f-price">Price</label>
+                        <input id="f-price" class="filtr radioBtn" type="radio" name="q" value="price"/>
+                    </div>
+                    <div class="f-container">
+                        <label for="f-country">Country</label>
+                        <input id="f-country" class="filtr radioBtn" type="radio" name="q" value="country"/>
+                    </div>
+                    <div class="f-container">
+                        <label for="f-size">Size</label>
+                        <input id="f-size" class="filtr radioBtn" type="radio" name="q" value="size"s/>
+                    </div>
+                    <div class="container-logic">
+                        <input class="hide" type="hidden" name="hide1" value=""/>
+                        <input class="filter-text" type="text" name="filtr-value" value=""/>
+                        <input class="filer-Button" type="submit" name="name" value="Filter" onclick="getValueFilter()"/>
+                    </div>
+                </div>
+                <div class="exit-div">
+                    <input type="button" class="w-exit-btn" name="name" value="Exit" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    $('.window-bg').fadeOut(0);
+    $('.sort-btn').click(function () {
+        $('.window-bg').fadeIn(75)
+    });
+    $('.w-exit-btn').click(function () {
+        $('.window-bg').fadeOut(75)
+    });
+
+    $('.filtr-windows-bg').fadeOut(0);
+    $('.filtr-btn').click(function () {
+        $('.filtr-windows-bg').fadeIn(75)
+    });
+    $('.w-exit-btn').click(function () {
+        $('.filtr-windows-bg').fadeOut(75)
+    });
+
+    function getValueFilter() {
+        const radioButtons = document.querySelectorAll(".radioBtn");
+
+        for (let i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+                document.querySelector(".hide").value = radioButtons[i].value;
+                console.log(document.querySelector(".hide"));
+            }
+        }           
+    }
+
+    document.getElementById('f-date').checked = true;
+    
+</script>
